@@ -3,10 +3,11 @@ import React from 'react';
 import App from './App'
 
 class Todo extends React.Component {
-    state = {
-        todo: [
-
-        ]
+    constructor() {
+        super();
+        this.state = {
+            todo: []
+        }
     }
 
     addTodo(newTodo) {
@@ -21,22 +22,44 @@ class Todo extends React.Component {
 
     render() {
         window.addEventListener('click', () => {
-            if (App.todo.length > 0) {
+            let id = App.todo.id + 1;
+
+            if (App.todo.role.length > 0) {
                 let copyState = this.state.todo;
                 this.setState({
                     todo: [...copyState, App.todo]
                 })
-                App.todo = "";
+
+                App.todo = {
+                    role: '',
+                    checked: false,
+                    id: id
+                };
             }
         })
 
-        const mylist = this.state.todo.map (el => (
-            <li key={Math.random}>{el}</li>
-        ));
+        const mylistNotComplited = this.state.todo.map(el => {
+            return el.checked !== true ? (<tr key={el.id}>
+                <td> {el.role} </td>
+                <td> <input type="checkbox" value={el.checked} /> </td>
+            </tr>) : null
+        });
+
         return (
-            <ul>
-                {mylist}
-            </ul>
+            <div>
+                <h4> Por Completar </h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <td> Role </td>
+                            <td> Açoes </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {mylistNotComplited}
+                    </tbody>
+                </table>
+            </div>
         );
     }
 }

@@ -6,8 +6,8 @@ const fillNewTodo = (e)  =>{
     newTodo = e.target.value
 }
 
-
 const AddTodo = ({ getTodo }) => {
+
     const putTodo = () => {
         getTodo(newTodo)
     }
@@ -19,6 +19,5 @@ const AddTodo = ({ getTodo }) => {
         </div>
     );
 };
-
 
 export default AddTodo;
